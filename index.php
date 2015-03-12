@@ -213,4 +213,4 @@ echo "</div>";
 echo "</div>";
 echo "</div>";
 echo "</html>";
-ldap_close($ds);[
+ldap_close($ds);

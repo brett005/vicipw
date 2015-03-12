@@ -5,8 +5,9 @@ session_start();
 $basedir = explode ( '/var/', dirname(__DIR__));
 require_once $basedir[0] . '/etc/config.vici_sync.php';
 
+// LDAP connect settings:
 $LDAP = array(
-    'server' => '192.168.11.23',
+    'server' => '192.168.0.23',
     'port' => '389',
     'bindDN' => NULL,
     'bindPW' => NULL,
@@ -16,10 +17,11 @@ $LDAP = array(
 $ds = ldap_connect($LDAP['server'], $LDAP['port'])
     or die("Could not connect to LDAP server.");
 
+//setting up LDAP protocol version
 ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
 
 function print_form($header){
-    ?>
+?>
 <div style="background-image: url('img/company.jpg'); background-repeat: no-repeat; height: 140px"></div>
 <?php
 echo $header;
@@ -81,7 +83,7 @@ else {
         }
 
    //---------------------------------------------------------------
-   // was one entry echoed ?
+   // was one entry echoed?
    //---------------------------------------------------------------
 
         $n = ldap_count_entries($ds,$sr);
@@ -136,7 +138,7 @@ else {
             $fullname = $info[0]['cn'][0];
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 // Email is found and valid;
-                $venom_mysqli = new mysqli($venom_host, $venom_user, $venom_pass, $venom_db);
+                $venom_mysqli = new mysqli($db1_host, $db1_user, $db1_pass, $db1_db);
 
                 if (mysqli_connect_errno()) {
                     printf("Mysql connect error!: %s\n", mysqli_connect_error());
@@ -158,12 +160,12 @@ else {
                         if( mail($email, "ViCIDial password requested", $message,
                             "From: vladimir.mitrofanov@company.com \r\n"
                            ."X-Mailer: PHP/" . phpversion())){
-                            echo "<div style=\"background-image: url('img/supportbpologo3.jpg');
+                            echo "<div style=\"background-image: url('img/company.jpg');
                             background-repeat: no-repeat; height: 140px\"></div>";
                             echo "<p class=\"text-center bg-success\">"
                             . "Your vicidial password <br />has been sent to your email";
-                            if ( preg_match('/@supportbpo.com$/', $email)){
-                                echo "</br><a href=\"https://192.168.11.20/roundcubemail/\">$email</a><br /></p>";
+                            if ( preg_match('/@company.com$/', $email)){
+                                echo "</br><a href=\"https://192.168.0.20/roundcubemail/\">$email</a><br /></p>";
                             }
                             else { echo "</br><a href=\"mailto:#\">$email</a><br /></p>"; }
 

@@ -5,9 +5,9 @@ $db1_user='root';
 $db1_pass='';
 $db1_db='status';
 
-$vici_host='38.102.228.45';
+$vici_host='10.0.0.10';
 $vici_user='root';
-$vici_pass='bigfoot123';
+$vici_pass='SECRET';
 $vici_db='asterisk';
 $vici_user_table = 'vicidial_users';
 
